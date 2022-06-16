@@ -2,7 +2,7 @@
 #include "decompress.h"
 
 int main() {
-    compress("даги.mp3", "compressed.bin");
-    decompress("compressed.bin", "out.mp3");
+    compress("aaa.txt", "compressed.bin");
+    decompress("compressed.bin", "work.txt");
     return 0;
 }

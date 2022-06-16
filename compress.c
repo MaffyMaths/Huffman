@@ -48,7 +48,7 @@ nodeptr buildList(long *freq, int *listSize) {
             vert->symb = (unsigned char) i;
             vert->next = NULL;
             vert->level = 0;
-            list = addToList(list, vert);
+            list = addToList(list, vert);  // добавление в список и сортировка
             (*listSize)++;
         }
     }
@@ -104,8 +104,8 @@ void compress(const char *input_filename, const char *output_filename) {
         ++freq[(unsigned char) fgetc(input)];
     }
     int listSize = 0;
-    nodeptr list = buildList(freq, &listSize);
-    while (listSize > 1) {
+    nodeptr list = buildList(freq, &listSize); // построение отсортированного списка символов
+    while (listSize > 1) {   // создание дерева
         nodeptr le = list;
         nodeptr ri = le->next;
         nodeptr nl = ri->next;
@@ -128,7 +128,7 @@ void compress(const char *input_filename, const char *output_filename) {
     char *map[256] = {NULL};
     char curr[256] = {0};
     int len[256] = {0};
-    buildCodes(tree, map, curr, 0);
+    buildCodes(tree, map, curr, 0);  // создание кодов для сжатия
 
     int alphabet_size = 0;
     for (int i = 0; i < 256; i++) {
@@ -157,7 +157,7 @@ void compress(const char *input_filename, const char *output_filename) {
     print_char(output, 255 & (sum >> 16));
     print_char(output, 255 & (sum >> 8));
     print_char(output, 255 & (sum >> 0));
-    printf("Compression(bytes):\n%d orig\n%d result", size, sum / 8);
+    printf("Compression(bytes):\n%d original\n%d result", size, sum / 8);
 
     fseek(input, 0, SEEK_SET);
     for (int i = 0; i < size; i++) {
